@@ -6,10 +6,15 @@ window.addEventListener('load', function() {
 
     //Funkcia pridanie novej cards //
 
-    function addNewElement(classList, heading, paragraph) {
+    function addNewElement(classList, closeIcon, heading, paragraph) {
         const newElement = document.createElement('li');
         newElement.classList.add(classList);
         newElement.draggable = true;
+
+        const closeIcon = document.createElement('img');
+        closeIcon.src = './images/close-red-icon.svg';
+        closeIcon.classList.add('close-icon');
+        
 
         const newHeading = document.createElement('h3');
         newHeading.textContent = heading;
@@ -17,6 +22,7 @@ window.addEventListener('load', function() {
         const newParagraph = document.createElement('p');
         newParagraph.textContent = paragraph;
 
+        newElement.appendChild(closeIcon);
         newElement.appendChild(newHeading);
         newElement.appendChild(newParagraph);
 
