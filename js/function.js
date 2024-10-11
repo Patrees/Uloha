@@ -28,7 +28,7 @@ window.addEventListener('load', function() {
     button.addEventListener('click', function(event) {
         event.preventDefault();
 
-        let headingValue = document.querySelecer('input[name="HeaderCard"]').value.trim();
+        let headingValue = document.querySelector('input[name="HeaderCard"]').value.trim();
         let paragraphValue = document.querySelector('textarea[name="TextCard"]').value.trim();
         const existingErrorMessage = document.querySelector('.error-message');
 
@@ -74,7 +74,7 @@ window.addEventListener('load', function() {
 
     list.addEventListener('drop', function(event) {
         event.preventDefault();
-        if (event.targer.tagName === 'LI' && draggedItem !== event.target) {
+        if (event.target.tagName === 'LI' && draggedItem !== event.target) {
             list.insertBefore(draggedItem, event.target);
         }
             
