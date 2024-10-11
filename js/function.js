@@ -4,7 +4,7 @@ window.addEventListener('load', function() {
     const list = this.document.querySelector('.cards ul');
     let draggedItem = null;
 
-    //Vytvorenie pola na ulozenie kariet //
+    //Vytvorenie pola na ulozenie card //
     let cardsArray = [
         { heading: "Nadpis 1", paragraph: "Text pre kartu 1" },
         { heading: "Nadpis 2", paragraph: "Text pre kartu 2" },
