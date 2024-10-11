@@ -35,6 +35,15 @@
     margin-bottom: 0;
 }
 
+.close-icon {
+	position: absolute;
+	width: 1.5rem;
+	height: auto;
+	top: 0.5rem;
+	right: 0.5rem;
+	cursor: pointer;
+}
+
 /* input[type="text"], textarea {
     width: 100%;
     padding: 1.6rem;
@@ -87,9 +96,9 @@ button.btn:active {
     white-space: nowrap;
 }
 
-.cards h3 {  /* default */
+/* .cards h3 {  
 	background-image: url("../images/icon-playdate-sdk.svg");
-}
+} */
 .sdk h3 {
 	background-image: url("../images/icon-playdate-sdk.svg");
 }
@@ -98,7 +107,9 @@ button.btn:active {
 }
 .inside h3 {
 	background-image: url("../images/icon-inside-playdate.png");
-}
+} 
+
+
 
 /**
  * CONTROLS
