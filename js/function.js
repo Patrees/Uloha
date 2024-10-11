@@ -51,39 +51,7 @@
     
     });
 
-    const blocks = document.querySelectorAll('.cards li');
-    let draggedItem = null;
 
-        blocks.forEach(function(block) {
-            block.addEventListener('dragstart', function() {
-                draggedItem = block;
-                setTimeout(function() {
-                    block.classList.add('dragging');
-                }, 0);
-            });
-
-            block.addEventListener('dragend', function() {
-                setTimeout(function() {
-                    draggedItem = null
-                    block.classList.remove('dragging');
-                }, 0);
-            
-            });
-
-            block.addEventListener('dragover', function(event) {
-                event.preventDefault();
-            });
-
-            block.addEventListener('drop', function(event) {
-                event.preventDefault();
-                if (draggedItem !== this) {
-                    let cards = document.querySelector('.cards ul');
-                    cards.insertBefore(draggedItem, this);
-                }
-
-        });
-    
-    });
 
 });
 
