@@ -48,7 +48,7 @@ window.addEventListener('load', function() {
         }
     });
 
-    // DRAG AND DROP FUNKCIA //
+    // Drag and drop funkcionalita //
 
     list.addEventListener('dragstart', function(event) {
         if (event.target.tagName === 'LI') {
