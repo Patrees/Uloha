@@ -8,7 +8,7 @@ window.addEventListener('load', function() {
 
     function addNewElement(classList, heading, paragraph) {
         const newElement = document.createElement('li');
-        newElement.classList.add(classList);
+        newElement.classList.add("animate__animated", "animate__pulse", classList);
         newElement.draggable = true;
 
         const newCloseIcon = document.createElement('img');
@@ -42,7 +42,7 @@ window.addEventListener('load', function() {
             if (!existingErrorMessage) {
                 const errorMessage = document.createElement('p');
                 errorMessage.classList.add('error-message');
-                errorMessage.textContent = 'Vyplň prosimity formulár';
+                errorMessage.textContent = 'Vyplň prosim ta formulár';
                 form.insertBefore(errorMessage, form.firstChild);
             }
         }else {
