@@ -6,23 +6,22 @@ window.addEventListener('load', function() {
 
     //Funkcia pridanie novej cards //
 
-    function addNewElement(classList, closeIcon, heading, paragraph) {
+    function addNewElement(classList, heading, paragraph) {
         const newElement = document.createElement('li');
         newElement.classList.add(classList);
         newElement.draggable = true;
 
-        const closeIcon = document.createElement('img');
-        closeIcon.src = './images/close-red-icon.svg';
-        closeIcon.classList.add('close-icon');
+        const newCloseIcon = document.createElement('img');
+        newCloseIcon.src = './images/close-red-icon.svg';
+        newCloseIcon.classList.add('close-icon');
         
-
         const newHeading = document.createElement('h3');
         newHeading.textContent = heading;
 
         const newParagraph = document.createElement('p');
         newParagraph.textContent = paragraph;
 
-        newElement.appendChild(closeIcon);
+        newElement.appendChild(newCloseIcon);
         newElement.appendChild(newHeading);
         newElement.appendChild(newParagraph);
 
@@ -37,6 +36,7 @@ window.addEventListener('load', function() {
         let headingValue = document.querySelector('input[name="HeaderCard"]').value.trim();
         let paragraphValue = document.querySelector('textarea[name="TextCard"]').value.trim();
         const existingErrorMessage = document.querySelector('.error-message');
+        
 
         if (headingValue === '' || paragraphValue === '') {
             if (!existingErrorMessage) {
@@ -84,6 +84,14 @@ window.addEventListener('load', function() {
             list.insertBefore(draggedItem, event.target);
         }
             
+    });
+
+    // Funkcia odstránenie karty //
+
+    list.addEventListener('click', function(event) {
+        if (event.target.classList.contains('close-icon')) {
+            event.target.parentElement.remove();
+        }
     });
 
 });
