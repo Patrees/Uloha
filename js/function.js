@@ -8,7 +8,7 @@ window.addEventListener('load', function() {
 
     function addNewElement(heading, paragraph) {
         const newElement = document.createElement('li');
-        newElement.classList.add("animate__animated", "animate__pulse", "sdk");
+        newElement.classList.add('animate__animated', 'animate__pulse', 'sdk');
         newElement.draggable = true;
 
         const newCloseIcon = document.createElement('img');
@@ -28,7 +28,7 @@ window.addEventListener('load', function() {
         list.appendChild(newElement);
 
         setTimeout(() => {
-            newElement.classList.remove("animate__animated" , "animate__pulse"); 
+            newElement.classList.remove('animate__animated' , 'animate__pulse'); 
         }, 1000);
     }
 
@@ -45,13 +45,16 @@ window.addEventListener('load', function() {
         if (headingValue === '' || paragraphValue === '') {
             if (!existingErrorMessage) {
                 const errorMessage = document.createElement('p');
-                errorMessage.classList.add('error-message');
+                errorMessage.classList.add('animate__animated', 'animate__bounce', 'error-message');
                 errorMessage.textContent = 'Vyplň prosim ta formulár';
                 form.insertBefore(errorMessage, form.firstChild);
             }
         }else {
             if (existingErrorMessage) {
-                form.removeChild(existingErrorMessage);
+                existingErrorMessage.classList.add('animate__animated', 'animate__backOutDown')
+                setTimeout( function() {
+                    form.removeChild(existingErrorMessage); 
+                }, 500);
             }
             addNewElement( headingValue, paragraphValue);
             form.reset();
@@ -95,7 +98,7 @@ window.addEventListener('load', function() {
     list.addEventListener('click', function(event) {
         if (event.target.classList.contains('close-icon')) {
             event.target.parentElement.classList.add('animate__animated', 'animate__backOutDown');
-            setTimeout(() => {
+            setTimeout( function() {
                 event.target.parentElement.remove(); 
             }, 500);
             
