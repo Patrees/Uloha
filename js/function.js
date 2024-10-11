@@ -1,4 +1,4 @@
-import { fetchCardsDatabase } from "./home.js";
+import { fetchCardsDatabase, insertCardsDatabase } from "./home.js";
 
 window.addEventListener('load', function() {
     
@@ -39,15 +39,6 @@ window.addEventListener('load', function() {
         list.appendChild(newElement);
     }
 
-    // Funkcia na pridanie card do pola a do DOM //
-
-    function addNewCard(heading, paragraph) {
-        const newCard = {
-            heading: heading,
-            paragraph: paragraph
-        };
-    }
-
     // Funkcia pridanie karty po stlaceni tlacidla //
 
     button.addEventListener('click', function(event) {
@@ -72,11 +63,12 @@ window.addEventListener('load', function() {
                     form.removeChild(existingErrorMessage); 
                 }, 500);
             }
-           addNewCard(headingValue, paragraphValue);
+            insertCardsDatabase (headingValue, paragraphValue);
+            createCardElement({heading: headingValue, paragraph: paragraphValue});
             form.reset();
         }
     });
-
+       
     // Drag and drop funkcionalita //
 
     list.addEventListener('dragstart', function(event) {

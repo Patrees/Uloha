@@ -20,5 +20,14 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 
   // Vlozenie dat do databazy  z formulara //
+export async function insertCardsDatabase(heading, paragraph) {
+    const { data, error } = await supabase.from('cards').insert([{ heading: heading, paragraph: paragraph }]);
+    if (error) {
+      console.log('Error', error);
+      return [];
+    } 
+    
+    return data;
+}
 
 
