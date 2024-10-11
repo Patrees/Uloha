@@ -1,20 +1,20 @@
-
+import { fetchCardsDatabase } from "./home.js";
 
 window.addEventListener('load', function() {
+    
     const button = document.querySelector('.btn');
     const form = document.querySelector('form');
     const list = this.document.querySelector('.cards ul');
     let draggedItem = null;
 
-    //Vytvorenie pola na ulozenie card //
-    let cardsArray = [
-        { heading: "Nadpis 1", paragraph: "Text pre kartu 1" },
-        { heading: "Nadpis 2", paragraph: "Text pre kartu 2" },
-        { heading: "Nadpis 3", paragraph: "Text pre kartu 3" },
-        { heading: "Nadpis 4", paragraph: "Text pre kartu 4" },
-        { heading: "Nadpis 5", paragraph: "Text pre kartu 5" }
-    ];
+    //funkcia na zobrazenie card//
+    async function displayAllCards() {
+        const cardsArray = await fetchCardsDatabase();
 
+        cardsArray.forEach(function(card) {
+            createCardElement(card);  // Vytváranie jednotlivých kariet pomocou načítaných dát
+        });
+    }
     //Funkcia na vytvorenie HTML card z objektu pola //
 
     function createCardElement(card) {
@@ -46,16 +46,6 @@ window.addEventListener('load', function() {
             heading: heading,
             paragraph: paragraph
         };
-
-    // Pridanie objektu card do pola //
-
-    cardsArray.push(newCard);
-
-
-    // Vytvorenie HTML card //
-
-    createCardElement(newCard);
-
     }
 
     // Funkcia pridanie karty po stlaceni tlacidla //
@@ -86,15 +76,6 @@ window.addEventListener('load', function() {
             form.reset();
         }
     });
-
-    // Zobrazenie card pri nacitani //
-
-    function displayAllCards() {
-        list.innerHTML = ''; // vycistenie zoznamu
-        cardsArray.forEach(function(card) {
-            createCardElement(card); // vytvorenie elementu pre kazdy card
-        });
-    }
 
     // Drag and drop funkcionalita //
 
