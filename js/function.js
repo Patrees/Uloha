@@ -6,9 +6,9 @@ window.addEventListener('load', function() {
 
     //Funkcia pridanie novej cards //
 
-    function addNewElement(classList, heading, paragraph) {
+    function addNewElement(heading, paragraph) {
         const newElement = document.createElement('li');
-        newElement.classList.add("animate__animated", "animate__pulse", classList);
+        newElement.classList.add("animate__animated", "animate__pulse", "sdk");
         newElement.draggable = true;
 
         const newCloseIcon = document.createElement('img');
@@ -26,6 +26,10 @@ window.addEventListener('load', function() {
         newElement.appendChild(newParagraph);
 
         list.appendChild(newElement);
+
+        setTimeout(() => {
+            newElement.classList.remove("animate__animated" , "animate__pulse"); 
+        }, 1000);
     }
 
     // Funkcia pridanie karty po stlaceni tlacidla //
@@ -49,7 +53,7 @@ window.addEventListener('load', function() {
             if (existingErrorMessage) {
                 form.removeChild(existingErrorMessage);
             }
-            addNewElement('sdk', headingValue, paragraphValue);
+            addNewElement( headingValue, paragraphValue);
             form.reset();
         }
     });
@@ -90,7 +94,11 @@ window.addEventListener('load', function() {
 
     list.addEventListener('click', function(event) {
         if (event.target.classList.contains('close-icon')) {
-            event.target.parentElement.remove();
+            event.target.parentElement.classList.add('animate__animated', 'animate__backOutDown');
+            setTimeout(() => {
+                event.target.parentElement.remove(); 
+            }, 500);
+            
         }
     });
 
