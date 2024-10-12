@@ -90,7 +90,7 @@ window.addEventListener("load", function () {
     }
   }
 
-  displayAllCards();
+
 
   // Drag and drop funkcionalita //
 
@@ -143,4 +143,6 @@ window.addEventListener("load", function () {
       }
     }
   }
+
+  displayAllCards();
 });
