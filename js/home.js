@@ -30,4 +30,16 @@ export async function insertCardsDatabase(heading, paragraph) {
     return data;
 }
 
+  // Vymazanie dat z databazy  //
+  export async function deleteCardsDatabase(cardID) {
+    const { data, error } = await supabase.from('cards').delete().match({ id: cardID });
+    if (error) {
+      console.log('Error', error);
+      return false;
+    } 
+    
+    return true;
+}
+
+
 

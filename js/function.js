@@ -1,4 +1,4 @@
-import { fetchCardsDatabase, insertCardsDatabase } from "./home.js";
+import { fetchCardsDatabase, insertCardsDatabase, deleteCardsDatabase } from "./home.js";
 
 window.addEventListener('load', function() {
     
@@ -12,7 +12,7 @@ window.addEventListener('load', function() {
         const cardsArray = await fetchCardsDatabase();
 
         cardsArray.forEach(function(card) {
-            createCardElement(card);  // Vytváranie jednotlivých kariet pomocou načítaných dát
+            createCardElement(card);  
         });
     }
     //Funkcia na vytvorenie HTML card z objektu pola //
@@ -25,6 +25,7 @@ window.addEventListener('load', function() {
         const newCloseIcon = document.createElement('img');
         newCloseIcon.src = './images/close-red-icon.svg';
         newCloseIcon.classList.add('close-icon');
+        newCloseIcon.setAttribute('data-id', card.id);
         
         const newHeading = document.createElement('h3');
         newHeading.textContent = card.heading;
@@ -101,16 +102,21 @@ window.addEventListener('load', function() {
             
     });
 
-    // Funkcia odstránenie karty //
+    // Funkcia odstránenie karty z databazy //
 
     list.addEventListener('click', function(event) {
-        if (event.target.classList.contains('close-icon')) {
-            event.target.parentElement.classList.add('animate__animated', 'animate__backOutDown');
-            setTimeout( function() {
-                event.target.parentElement.remove(); 
-            }, 500);
-            
-        }
+                if (event.target.classList.contains('close-icon')) {
+                    event.target.parentElement.classList.add('animate__animated', 'animate__backOutDown');
+                    const cardID = event.target.getAttribute('data-id');
+                    const isdeleted = deleteCardsDatabase(cardID)
+                    if (isdeleted) {
+    
+                        setTimeout( function() {
+                            event.target.parentElement.remove(); 
+                        }, 500);
+    
+                    }
+            }   
     });
 
     displayAllCards();
