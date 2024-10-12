@@ -49,38 +49,6 @@ window.addEventListener("load", function () {
   button.addEventListener("click", submitButton);
   list.addEventListener("click", deleteFromList);
 
-  displayAllCards();
-
-  // Drag and drop funkcionalita //
-
-  list.addEventListener("dragstart", function (event) {
-    if (event.target.tagName === "LI") {
-      draggedItem = event.target;
-      setTimeout(function () {
-        draggedItem.classList.add("dragging");
-      }, 0);
-    }
-  });
-
-  list.addEventListener("dragend", function (event) {
-    if (event.target.tagName === "LI") {
-      setTimeout(function () {
-        draggedItem.classList.remove("dragging");
-        draggedItem = null;
-      }, 0);
-    }
-  });
-
-  list.addEventListener("dragover", function (event) {
-    event.preventDefault();
-  });
-
-  list.addEventListener("drop", function (event) {
-    event.preventDefault();
-    if (event.target.tagName === "LI" && draggedItem !== event.target) {
-      list.insertBefore(draggedItem, event.target);
-    }
-  });
 
   // Funkcia pridanie karty po stlaceni tlacidla //
 
@@ -122,9 +90,45 @@ window.addEventListener("load", function () {
     }
   }
 
+  displayAllCards();
+
+  // Drag and drop funkcionalita //
+
+  list.addEventListener("dragstart", function (event) {
+    if (event.target.tagName === "LI") {
+      draggedItem = event.target;
+      setTimeout(function () {
+        draggedItem.classList.add("dragging");
+      }, 0);
+    }
+  });
+
+  list.addEventListener("dragend", function (event) {
+    if (event.target.tagName === "LI") {
+      setTimeout(function () {
+        draggedItem.classList.remove("dragging");
+        draggedItem = null;
+      }, 0);
+    }
+  });
+
+  list.addEventListener("dragover", function (event) {
+    event.preventDefault();
+  });
+
+  list.addEventListener("drop", function (event) {
+    event.preventDefault();
+    if (event.target.tagName === "LI" && draggedItem !== event.target) {
+      list.insertBefore(draggedItem, event.target);
+    }
+  });
+
+  
+
   // Funkcia odstránenie karty z databazy //
 
-  async function deleteFromList(event) {
+
+  function deleteFromList(event) {
     if (event.target.classList.contains("close-icon")) {
       event.target.parentElement.classList.add(
         "animate__animated",
