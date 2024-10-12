@@ -1,5 +1,5 @@
 
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
 const supabaseUrl = process.env.REACT_APP_PLAYDATEFUN_URL;
 const supabaseKey = process.env.REACT_APP_ANON_KEY;
