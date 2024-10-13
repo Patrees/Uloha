@@ -10,7 +10,7 @@ window.addEventListener("load", function () {
   const button = document.querySelector(".btn");
   const form = document.querySelector("form");
 
-  let draggedItem = null;
+
 
   //Funkcia na vytvorenie HTML card //
   
@@ -170,6 +170,9 @@ window.addEventListener("load", function () {
 
 
   // Drag and drop funkcionalita //
+  let draggedItem = null;
+  let targetItem = null;
+
 
   list.addEventListener("dragstart", function (event) {
     if (event.target.tagName === "LI") {
@@ -185,6 +188,7 @@ window.addEventListener("load", function () {
       setTimeout(function () {
         draggedItem.classList.remove("dragging");
         draggedItem = null;
+        targetItem = null;
       }, 0);
     }
   });
@@ -193,10 +197,27 @@ window.addEventListener("load", function () {
     event.preventDefault();
   });
 
+  list.addEventListener("dragenter", function (event) {
+
+    if (event.target.tagName === "LI" && event.target !== targetItem) {
+    targetItem = event.target;
+ 
+    }
+  });
+
   list.addEventListener("drop", function (event) {
     event.preventDefault();
-    if (event.target.tagName === "LI" && draggedItem !== event.target) {
-      list.insertBefore(draggedItem, event.target);
+    if ( targetItem && draggedItem !== targetItem) {
+      const draggedIndex = [...list.children].indexOf(draggedItem);
+      const targetIndex = [...list.children].indexOf(targetItem);
+
+      if (draggedIndex < targetIndex) {
+        list.insertBefore(targetItem, draggedItem);
+        list.insertBefore(draggedItem, targetItem.nextSibling);
+      } else {
+        list.insertBefore(draggedItem, targetItem );
+        list.insertBefore(targetItem, draggedItem.nextSibling);
+      }
     }
   });
 
