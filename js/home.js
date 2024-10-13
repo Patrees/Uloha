@@ -43,3 +43,20 @@ export async function deleteCardsDatabase(cardID) {
 
   return true;
 }
+
+
+// Uprava dat z databazy  //
+
+export async function updateCardsDatabase(cardID, updateField) {
+  const { data, error } = await supabase
+    .from("cards")
+    .update(updateField)
+    .match({ id: cardID });
+
+  if (error) {
+    console.log("Error", error);
+    return false;
+  }
+
+  return true;
+}

@@ -2,6 +2,7 @@ import {
   fetchCardsDatabase,
   insertCardsDatabase,
   deleteCardsDatabase,
+  updateCardsDatabase,
 } from "./home.js";
 
 window.addEventListener("load", function () {
@@ -25,9 +26,15 @@ window.addEventListener("load", function () {
 
     const newHeading = document.createElement("h3");
     newHeading.textContent = card.heading;
+    newHeading.setAttribute("data-id", card.id);
+    newHeading.classList.add("editing-heading");
+    newHeading.addEventListener("click", enableEdit);
 
     const newParagraph = document.createElement("p");
     newParagraph.textContent = card.paragraph;
+    newParagraph.setAttribute("data-id", card.id);
+    newParagraph.classList.add("editing-paragraph");
+    newParagraph.addEventListener("click", enableEdit);
 
     newElement.appendChild(newCloseIcon);
     newElement.appendChild(newHeading);
@@ -48,6 +55,65 @@ window.addEventListener("load", function () {
 
   button.addEventListener("click", submitButton);
   list.addEventListener("click", deleteFromList);
+
+  // Funkcia na editaciu kariet//
+
+
+  function enableEdit(event) {
+    const element = event.target;
+    const originalText = element.textContent;
+    const type = element.tagName.toLowerCase();
+
+    let input;
+    if (type === "h3") {
+
+      input = document.createElement("input");
+
+    } else if (type === "p") {
+
+      input = document.createElement("textarea");
+
+    } 
+
+    input.value = originalText;
+    input.classList.add("editing-input");
+
+    element.replaceWith(input);
+    input.focus();
+
+    input.addEventListener("blur", function () {
+      const updatedText = input.value.trim();
+
+      if (updatedText && updatedText !== originalText) {
+        updateCardContent(element, getAttribute("data-id"), type, updatedText);
+        input.replaceWith(element);
+      } else {
+        input.replaceWith(element);
+      }
+    });
+
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && type === "h3") {
+      input.blur();
+    }
+  });
+
+  async function updateCardContent(id, type, updatedText) {
+    let updateField = {}
+    if (type === "h3") {
+      updateField = { heading: updatedText };
+    } else if (type === "p") {
+      updateField = { paragraph: updatedText };
+    }
+
+    const succes = await updateCardsDatabase(id, updateField);
+    if (succes) {
+      console.log("Uspesny update");
+    } else {
+      console.log("Nesuspesny update");
+    }
+  }
+
 
 
   // Funkcia pridanie karty po stlaceni tlacidla //
