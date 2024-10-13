@@ -217,6 +217,7 @@ window.addEventListener("load", function () {
         setTimeout(function () {
           event.target.parentElement.remove();
         }, 500);
+        console.log("Karta bola odstraNena");
       }
     }
   }
