@@ -8,7 +8,9 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // Nacitanie dat z databazy //
 
 export async function fetchCardsDatabase() {
-  const { data, error } = await supabase.from("cards").select("*");
+  const { data, error } = await supabase
+  .from("cards")
+  .select("*");
   if (error) {
     console.log("Error", error);
     return [];
