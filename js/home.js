@@ -21,13 +21,14 @@ export async function fetchCardsDatabase() {
 export async function insertCardsDatabase(heading, paragraph) {
   const { data, error } = await supabase
     .from("cards")
-    .insert([{ heading: heading, paragraph: paragraph }]);
+    .insert([{ heading: heading, paragraph: paragraph }])
+    .select("id");
   if (error) {
     console.log("Error", error);
     return [];
   }
 
-  return data;
+  return data[0].id;
 }
 
 // Vymazanie dat z databazy  //

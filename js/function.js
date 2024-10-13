@@ -12,7 +12,7 @@ window.addEventListener("load", function () {
 
   let draggedItem = null;
 
-  //Funkcia na vytvorenie HTML card z objektu pola //
+  //Funkcia na vytvorenie HTML card //
   
   function createCardElement(card) {
     const newElement = document.createElement("li");
@@ -119,11 +119,9 @@ window.addEventListener("load", function () {
   button.addEventListener("click", submitButton);
   list.addEventListener("click", deleteFromList);
 
-  displayAllCards();
-
   // Funkcia pridanie karty po stlaceni tlacidla //
 
-  function submitButton(event) {
+  async function submitButton(event) {
     event.preventDefault();
 
     let headingValue = document
@@ -155,8 +153,15 @@ window.addEventListener("load", function () {
           form.removeChild(existingErrorMessage);
         }, 500);
       }
-      insertCardsDatabase(headingValue, paragraphValue);
-      createCardElement({ heading: headingValue, paragraph: paragraphValue });
+     
+     
+      const newCardID = await insertCardsDatabase(headingValue, paragraphValue);
+  
+      createCardElement({ 
+        id: newCardID,
+        heading: headingValue, 
+        paragraph: paragraphValue 
+      });
       form.reset();
     }
     
