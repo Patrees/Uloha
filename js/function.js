@@ -12,8 +12,11 @@ window.addEventListener("load", function () {
 
 
 
-  //Funkcia na vytvorenie HTML card //
-  
+  /**
+   * Vytvori novy HTML element card
+   * @param {{id: number, heading: string, paragraph: string}} card - objekt s danymi pre novy card
+   *  
+  */
   function createCardElement(card) {
     const newElement = document.createElement("li");
     newElement.classList.add("sdk");
@@ -45,8 +48,9 @@ window.addEventListener("load", function () {
     list.appendChild(newElement);
   }
 
-  //funkcia na zobrazenie card//
-
+/**
+ *funkcia na zobrazenie card// 
+ */
   async function displayAllCards() {
     const cardsArray = await fetchCardsDatabase();
 
@@ -57,8 +61,11 @@ window.addEventListener("load", function () {
 
   }
 
-  // Funkcia editovanie cards //
 
+/**
+ * Funkcia editovanie cards 
+ * @param {*} event 
+ */
   function enableEdit(event) {
 
     const element = event.target;
@@ -98,6 +105,13 @@ window.addEventListener("load", function () {
     });
   }
 
+  /**
+   * Funkcia na updateCardContet
+   * @param {*} id 
+   * @param {*} type 
+   * @param {*} updatedText 
+   */
+
   async function updateCardContent(id, type, updatedText) {
 
     let updateField = {}
@@ -119,8 +133,11 @@ window.addEventListener("load", function () {
   button.addEventListener("click", submitButton);
   list.addEventListener("click", deleteFromList);
 
-  // Funkcia pridanie karty po stlaceni tlacidla //
 
+  /**
+   * Funkcia pridanie karty po stlaceni tlacidla
+   * @param {*} event 
+   */
   async function submitButton(event) {
     event.preventDefault();
 
@@ -167,9 +184,10 @@ window.addEventListener("load", function () {
     
   }
 
+  /**
+   * Drag and drop funkcionalita
+   */
 
-
-  // Drag and drop funkcionalita //
   let draggedItem = null;
   let targetItem = null;
 
@@ -223,8 +241,10 @@ window.addEventListener("load", function () {
 
   
 
-  // Funkcia odstránenie karty z databazy //
-
+  /**
+   * Funkcia odstránenie karty z databazy 
+   * @param {*} event 
+   */
 
   function deleteFromList(event) {
     if (event.target.classList.contains("close-icon")) {
@@ -245,4 +265,5 @@ window.addEventListener("load", function () {
 
   
   displayAllCards();
+  
 });
