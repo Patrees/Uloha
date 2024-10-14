@@ -10,13 +10,12 @@ window.addEventListener("load", function () {
   const button = document.querySelector(".btn");
   const form = document.querySelector("form");
 
-
-
   /**
    * Vytvori novy HTML element card
    * @param {{id: number, heading: string, paragraph: string}} card - objekt s danymi pre novy card
    *  
   */
+
   function createCardElement(card) {
     const newElement = document.createElement("li");
     newElement.classList.add("sdk");
@@ -51,6 +50,7 @@ window.addEventListener("load", function () {
 /**
  *funkcia na zobrazenie card// 
  */
+
   async function displayAllCards() {
     const cardsArray = await fetchCardsDatabase();
 
@@ -138,6 +138,7 @@ window.addEventListener("load", function () {
    * Funkcia pridanie karty po stlaceni tlacidla
    * @param {*} event 
    */
+  
   async function submitButton(event) {
     event.preventDefault();
 
@@ -239,8 +240,6 @@ window.addEventListener("load", function () {
     }
   });
 
-  
-
   /**
    * Funkcia odstránenie karty z databazy 
    * @param {*} event 
@@ -265,5 +264,5 @@ window.addEventListener("load", function () {
 
   
   displayAllCards();
-  
+
 });
