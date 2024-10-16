@@ -12,7 +12,10 @@ window.addEventListener("load", function () {
 
   /**
    * Vytvori novy HTML element card
-   * @param {{id: number, heading: string, paragraph: string}} card - objekt s danymi pre novy card
+   * @param {Object} card - objekt s danymi pre novy card
+   * @param {number} card.id - id karty
+   * @param {string} card.heading - nadpis karty
+   * @param {string} card.paragraph - text karty
    *  
   */
 
@@ -48,7 +51,7 @@ window.addEventListener("load", function () {
   }
 
 /**
- *funkcia na zobrazenie card// 
+  * Funkcia na zobrazenie vsetkych kariet
  */
 
   async function displayAllCards() {
@@ -62,10 +65,13 @@ window.addEventListener("load", function () {
   }
 
 
-/**
- * Funkcia editovanie cards 
- * @param {*} event 
- */
+  /**
+   * @function enableEdit
+   * @param {Event} event - event ktoru dostane funkcia
+   * @description Funkcia ktora sa vola pri kliknuti na h3 alebo p element
+   *              a nahradi ho inputom alebo textareou
+   *              a po skonceni editovania sa ulozi do databazy
+   */
   function enableEdit(event) {
 
     const element = event.target;
@@ -104,14 +110,13 @@ window.addEventListener("load", function () {
       }
     });
   }
-
   /**
    * Funkcia na updateCardContet
-   * @param {*} id 
-   * @param {*} type 
-   * @param {*} updatedText 
+   * @param {number} id - id karty ktoru chceme upravit
+   * @param {string} type - typ elementu ktoru chceme upravit
+   * @param {string} updatedText - novy text karty
+   * @returns {Promise<boolean>} - vrati true ak sa podarilo upravit, inak false
    */
-
   async function updateCardContent(id, type, updatedText) {
 
     let updateField = {}
@@ -133,12 +138,13 @@ window.addEventListener("load", function () {
   button.addEventListener("click", submitButton);
   list.addEventListener("click", deleteFromList);
 
-
   /**
    * Funkcia pridanie karty po stlaceni tlacidla
-   * @param {*} event 
-   */
-  
+   * @param {Event} event - event ktoru dostane funkcia
+   * @description Funkcia ktora sa vola pri stlaceni tlacidla
+   *              a prida novu kartu do databazy
+   *              a zaroven ju vypise na stranku
+   */  
   async function submitButton(event) {
     event.preventDefault();
 
@@ -186,7 +192,11 @@ window.addEventListener("load", function () {
   }
 
   /**
-   * Drag and drop funkcionalita
+   Funkcia ktora reaguje na udalost dragstart 
+   * a ulozi si element ktory sa draguje
+   * @param {Event} event - event ktoru dostane funkcia
+   * @description Funkcia ktora sa vola pri dragovani elementu
+   *              a ulozi si element ktory sa draguje
    */
 
   let draggedItem = null;
@@ -202,6 +212,14 @@ window.addEventListener("load", function () {
     }
   });
 
+    /**
+   Funkcia ktora reaguje na udalost  dragend 
+   * a vynuluje si premennu s elementom ktory sa dragoval
+   * @param {Event} event - event ktoru dostane funkcia
+   * @description Funkcia ktora sa vola po skonceni dragovania
+   *              a vynuluje si element ktory sa dragoval
+   */
+
   list.addEventListener("dragend", function (event) {
     if (event.target.tagName === "LI") {
       setTimeout(function () {
@@ -212,10 +230,24 @@ window.addEventListener("load", function () {
     }
   });
 
+  /**
+   * Funkcia ktora sa vola pri prenasani elementu cez list
+   * a znemozuje defaultne spravanje prenasania
+   * @param {Event} event - event ktoru dostane funkcia
+   * @description Funkcia ktora sa vola pri prenasani elementu cez list
+   *              a znemozuje defaultne spravanie prenasania
+   */
   list.addEventListener("dragover", function (event) {
     event.preventDefault();
   });
 
+  /**
+   * Funkcia ktora sa vola pri prechode cez element cez dragovanie
+   * a ulozi si element cez ktory sa prechadza
+   * @param {Event} event - event ktoru dostane funkcia
+   * @description Funkcia ktora sa vola pri prechode cez element cez dragovanie
+   *              a ulozi si element cez ktory sa prechadza
+   */
   list.addEventListener("dragenter", function (event) {
 
     if (event.target.tagName === "LI" && event.target !== targetItem) {
@@ -223,6 +255,8 @@ window.addEventListener("load", function () {
  
     }
   });
+
+
 
   list.addEventListener("drop", function (event) {
     event.preventDefault();
@@ -241,8 +275,11 @@ window.addEventListener("load", function () {
   });
 
   /**
-   * Funkcia odstránenie karty z databazy 
-   * @param {*} event 
+   * Funkcia ktora odstrani kartu z databazy a zobrazenia
+   * @param {Event} event - event ktoru dostane funkcia
+   * @description Funkcia ktora sa vola pri kliknuti na tlacidlo close
+   *              a odstrani kartu z databazy a zobrazenia
+   * 
    */
 
   function deleteFromList(event) {
