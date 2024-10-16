@@ -6,7 +6,7 @@ import {
 } from "./home.js";
 
 /**
- * Funkcia ktora inicializuje udalosti po nacitani stranky
+ * @description Funkcia ktora inicializuje udalosti po nacitani stranky
  */
 window.addEventListener("load", function () {
   const list = document.querySelector(".cards ul");
@@ -14,7 +14,7 @@ window.addEventListener("load", function () {
   const form = document.querySelector("form");
 
   /**
-   * Vytvori novy HTML element card
+   * @description Vytvori novy HTML element card
    * @param {Object} card - objekt s danymi pre novy card
    * @param {number} card.id - id karty
    * @param {string} card.heading - nadpis karty
@@ -52,7 +52,7 @@ window.addEventListener("load", function () {
   }
 
   /**
-   * Funkcia na zobrazenie vsetkych kariet
+   * @description Funkcia na zobrazenie vsetkych kariet
    */
 
   async function displayAllCards() {
