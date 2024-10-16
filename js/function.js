@@ -5,6 +5,9 @@ import {
   updateCardsDatabase,
 } from "./home.js";
 
+/**
+ * Funkcia ktora inicializuje udalosti po nacitani stranky
+ */
 window.addEventListener("load", function () {
   const list = document.querySelector(".cards ul");
   const button = document.querySelector(".btn");
@@ -16,8 +19,8 @@ window.addEventListener("load", function () {
    * @param {number} card.id - id karty
    * @param {string} card.heading - nadpis karty
    * @param {string} card.paragraph - text karty
-   *  
-  */
+   *
+   */
 
   function createCardElement(card) {
     const newElement = document.createElement("li");
@@ -35,13 +38,11 @@ window.addEventListener("load", function () {
     newHeading.classList.add("editing-heading");
     newHeading.addEventListener("click", enableEdit);
 
-
     const newParagraph = document.createElement("p");
     newParagraph.textContent = card.paragraph;
     newParagraph.setAttribute("data-id", card.id);
     newParagraph.classList.add("editing-paragraph");
     newParagraph.addEventListener("click", enableEdit);
-
 
     newElement.appendChild(newCloseIcon);
     newElement.appendChild(newHeading);
@@ -50,20 +51,18 @@ window.addEventListener("load", function () {
     list.appendChild(newElement);
   }
 
-/**
-  * Funkcia na zobrazenie vsetkych kariet
- */
+  /**
+   * Funkcia na zobrazenie vsetkych kariet
+   */
 
   async function displayAllCards() {
     const cardsArray = await fetchCardsDatabase();
 
-    list.innerHTML = ""
+    list.innerHTML = "";
     cardsArray.forEach(function (card) {
       createCardElement(card);
     });
-
   }
-
 
   /**
    * @function enableEdit
@@ -73,14 +72,13 @@ window.addEventListener("load", function () {
    *              a po skonceni editovania sa ulozi do databazy
    */
   function enableEdit(event) {
-
     const element = event.target;
     const originalText = element.textContent;
-    const type = element.tagName.toLowerCase(); 
+    const type = element.tagName.toLowerCase();
 
     let input;
     if (type === "h3") {
-     input = document.createElement("input");
+      input = document.createElement("input");
     } else {
       input = document.createElement("textarea");
     }
@@ -90,18 +88,16 @@ window.addEventListener("load", function () {
 
     element.replaceWith(input);
     input.focus();
- 
 
     input.addEventListener("blur", function () {
-    let updatedText = input.value.trim();
-    if (updatedText && updatedText !== originalText) {
-      
-      updateCardContent(element.getAttribute("data-id"), type, updatedText);
-      input.replaceWith(element);
-      element.textContent = updatedText;
-    } else {
-      input.replaceWith(element);
-    }
+      let updatedText = input.value.trim();
+      if (updatedText && updatedText !== originalText) {
+        updateCardContent(element.getAttribute("data-id"), type, updatedText);
+        input.replaceWith(element);
+        element.textContent = updatedText;
+      } else {
+        input.replaceWith(element);
+      }
     });
 
     input.addEventListener("keydown", function (event) {
@@ -118,21 +114,19 @@ window.addEventListener("load", function () {
    * @returns {Promise<boolean>} - vrati true ak sa podarilo upravit, inak false
    */
   async function updateCardContent(id, type, updatedText) {
-
-    let updateField = {}
+    let updateField = {};
     if (type === "h3") {
       updateField = { heading: updatedText };
     } else if (type === "p") {
       updateField = { paragraph: updatedText };
     }
-    
-  const succes = await updateCardsDatabase(id, updateField);
-    if (succes) {
-      console.log("Card Uspesny import")
-    } else {
-      console.log("Card neuspesny import")
-    }
 
+    const succes = await updateCardsDatabase(id, updateField);
+    if (succes) {
+      console.log("Card Uspesny import");
+    } else {
+      console.log("Card neuspesny import");
+    }
   }
 
   button.addEventListener("click", submitButton);
@@ -144,7 +138,7 @@ window.addEventListener("load", function () {
    * @description Funkcia ktora sa vola pri stlaceni tlacidla
    *              a prida novu kartu do databazy
    *              a zaroven ju vypise na stranku
-   */  
+   */
   async function submitButton(event) {
     event.preventDefault();
 
@@ -177,18 +171,16 @@ window.addEventListener("load", function () {
           form.removeChild(existingErrorMessage);
         }, 500);
       }
-     
-     
+
       const newCardID = await insertCardsDatabase(headingValue, paragraphValue);
-  
-      createCardElement({ 
+
+      createCardElement({
         id: newCardID,
-        heading: headingValue, 
-        paragraph: paragraphValue 
+        heading: headingValue,
+        paragraph: paragraphValue,
       });
       form.reset();
     }
-    
   }
 
   /**
@@ -202,7 +194,6 @@ window.addEventListener("load", function () {
   let draggedItem = null;
   let targetItem = null;
 
-
   list.addEventListener("dragstart", function (event) {
     if (event.target.tagName === "LI") {
       draggedItem = event.target;
@@ -212,7 +203,7 @@ window.addEventListener("load", function () {
     }
   });
 
-    /**
+  /**
    Funkcia ktora reaguje na udalost  dragend 
    * a vynuluje si premennu s elementom ktory sa dragoval
    * @param {Event} event - event ktoru dostane funkcia
@@ -249,18 +240,20 @@ window.addEventListener("load", function () {
    *              a ulozi si element cez ktory sa prechadza
    */
   list.addEventListener("dragenter", function (event) {
-
     if (event.target.tagName === "LI" && event.target !== targetItem) {
-    targetItem = event.target;
- 
+      targetItem = event.target;
     }
   });
 
-
+  /**
+   * Funkcia, ktorá sa vykonáva pri pustení elementu
+   * @param {Event} event - event, ktorý sa vyvolá pri pustení elementu
+   * @description Funkcia zabezpečuje presun elementov pomocou ťahania a pustenia
+   */
 
   list.addEventListener("drop", function (event) {
     event.preventDefault();
-    if ( targetItem && draggedItem !== targetItem) {
+    if (targetItem && draggedItem !== targetItem) {
       const draggedIndex = [...list.children].indexOf(draggedItem);
       const targetIndex = [...list.children].indexOf(targetItem);
 
@@ -268,7 +261,7 @@ window.addEventListener("load", function () {
         list.insertBefore(targetItem, draggedItem);
         list.insertBefore(draggedItem, targetItem.nextSibling);
       } else {
-        list.insertBefore(draggedItem, targetItem );
+        list.insertBefore(draggedItem, targetItem);
         list.insertBefore(targetItem, draggedItem.nextSibling);
       }
     }
@@ -279,7 +272,7 @@ window.addEventListener("load", function () {
    * @param {Event} event - event ktoru dostane funkcia
    * @description Funkcia ktora sa vola pri kliknuti na tlacidlo close
    *              a odstrani kartu z databazy a zobrazenia
-   * 
+   *
    */
 
   function deleteFromList(event) {
@@ -294,12 +287,10 @@ window.addEventListener("load", function () {
         setTimeout(function () {
           event.target.parentElement.remove();
         }, 500);
-        console.log("Karta bola odstraNena");
+        console.log("Karta bola odstranena");
       }
     }
   }
 
-  
   displayAllCards();
-
 });
