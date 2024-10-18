@@ -6,7 +6,7 @@ import {
 } from "./home.js";
 
 /**
- * @description Funkcia ktora inicializuje udalosti po nacitani stranky
+ * Funkcia ktora inicializuje udalosti po nacitani stranky
  */
 window.addEventListener("load", function () {
   const list = document.querySelector(".cards ul");
@@ -14,7 +14,7 @@ window.addEventListener("load", function () {
   const form = document.querySelector("form");
 
   /**
-   * @description Vytvori novy HTML element card
+   * Funkcia Vytvori novy HTML element card
    * @param {Object} card - objekt s danymi pre novy card
    * @param {number} card.id - id karty
    * @param {string} card.heading - nadpis karty
@@ -52,7 +52,7 @@ window.addEventListener("load", function () {
   }
 
   /**
-   * @description Funkcia na zobrazenie vsetkych kariet
+   * Funkcia na zobrazenie vsetkych kariet
    */
 
   async function displayAllCards() {
@@ -65,11 +65,12 @@ window.addEventListener("load", function () {
   }
 
   /**
+   * Funkcia ktora sa vola pri kliknuti na h3 alebo p element
+   * a nahradi ho inputom alebo textareou
+   * a po skonceni editovania sa ulozi do databazy
    * @function enableEdit
    * @param {Event} event - event ktoru dostane funkcia
-   * @description Funkcia ktora sa vola pri kliknuti na h3 alebo p element
-   *              a nahradi ho inputom alebo textareou
-   *              a po skonceni editovania sa ulozi do databazy
+   * 
    */
   function enableEdit(event) {
     const element = event.target;
@@ -111,7 +112,7 @@ window.addEventListener("load", function () {
    * @param {number} id - id karty ktoru chceme upravit
    * @param {string} type - typ elementu ktoru chceme upravit
    * @param {string} updatedText - novy text karty
-   * @returns {Promise<boolean>} - vrati true ak sa podarilo upravit, inak false
+   * vrati true ak sa podarilo upravit, inak false
    */
   async function updateCardContent(id, type, updatedText) {
     let updateField = {};
@@ -133,11 +134,11 @@ window.addEventListener("load", function () {
   list.addEventListener("click", deleteFromList);
 
   /**
-   * Funkcia pridanie karty po stlaceni tlacidla
+   * Funkcia ktora sa vola pri stlaceni tlacidla
+   * a prida novu kartu do databazy
+   * a zaroven ju vypise na stranku
    * @param {Event} event - event ktoru dostane funkcia
-   * @description Funkcia ktora sa vola pri stlaceni tlacidla
-   *              a prida novu kartu do databazy
-   *              a zaroven ju vypise na stranku
+   * 
    */
   async function submitButton(event) {
     event.preventDefault();
@@ -184,11 +185,10 @@ window.addEventListener("load", function () {
   }
 
   /**
-   Funkcia ktora reaguje na udalost dragstart 
-   * a ulozi si element ktory sa draguje
-   * @param {Event} event - event ktoru dostane funkcia
-   * @description Funkcia ktora sa vola pri dragovani elementu
+   * Funkcia ktora sa vola pri dragovani elementu
    *              a ulozi si element ktory sa draguje
+   * @param {Event} event - event ktoru dostane funkcia
+   * 
    */
 
   let draggedItem = null;
@@ -204,11 +204,10 @@ window.addEventListener("load", function () {
   });
 
   /**
-   Funkcia ktora reaguje na udalost  dragend 
-   * a vynuluje si premennu s elementom ktory sa dragoval
-   * @param {Event} event - event ktoru dostane funkcia
-   * @description Funkcia ktora sa vola po skonceni dragovania
+   * Funkcia ktora sa vola po skonceni dragovania
    *              a vynuluje si element ktory sa dragoval
+   * @param {Event} event - event ktoru dostane funkcia
+   * 
    */
 
   list.addEventListener("dragend", function (event) {
@@ -223,10 +222,9 @@ window.addEventListener("load", function () {
 
   /**
    * Funkcia ktora sa vola pri prenasani elementu cez list
-   * a znemozuje defaultne spravanje prenasania
+   * a znemozuje defaultne spravanie prenasania  
    * @param {Event} event - event ktoru dostane funkcia
-   * @description Funkcia ktora sa vola pri prenasani elementu cez list
-   *              a znemozuje defaultne spravanie prenasania
+   * 
    */
   list.addEventListener("dragover", function (event) {
     event.preventDefault();
@@ -236,8 +234,7 @@ window.addEventListener("load", function () {
    * Funkcia ktora sa vola pri prechode cez element cez dragovanie
    * a ulozi si element cez ktory sa prechadza
    * @param {Event} event - event ktoru dostane funkcia
-   * @description Funkcia ktora sa vola pri prechode cez element cez dragovanie
-   *              a ulozi si element cez ktory sa prechadza
+   * 
    */
   list.addEventListener("dragenter", function (event) {
     if (event.target.tagName === "LI" && event.target !== targetItem) {
@@ -246,9 +243,9 @@ window.addEventListener("load", function () {
   });
 
   /**
-   * Funkcia, ktorá sa vykonáva pri pustení elementu
+   * Funkcia zabezpečuje presun elementov pomocou ťahania a pustenia
    * @param {Event} event - event, ktorý sa vyvolá pri pustení elementu
-   * @description Funkcia zabezpečuje presun elementov pomocou ťahania a pustenia
+   * 
    */
 
   list.addEventListener("drop", function (event) {
@@ -268,10 +265,9 @@ window.addEventListener("load", function () {
   });
 
   /**
-   * Funkcia ktora odstrani kartu z databazy a zobrazenia
+   * Funkcia ktora sa vola pri kliknuti na tlacidlo close
+   * a odstrani kartu z databazy a zobrazenia
    * @param {Event} event - event ktoru dostane funkcia
-   * @description Funkcia ktora sa vola pri kliknuti na tlacidlo close
-   *              a odstrani kartu z databazy a zobrazenia
    *
    */
 
